@@ -19,22 +19,46 @@
         }
         #scene2 {
             position: absolute;
-            top: 30px;
-            left: 50px;
+            top: 300px;
+            left: 250px;
         }
         .drop1 {
             position: absolute;
-            top: 25px;
-            left: 1000px;
+            top: 300px;
+            left: 1100px;
         }
         .drop2 {
             position: absolute;
-            top: 65px;
-            left: 1000px;
+            top: 350px;
+            left: 1100px;
+        }
+        h1{
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            font-size: 16px;
+            color:black;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>The 2023 NBA playoffs and their statistics</h1>
+    </header>
+    <p>
+        Now, many may think to themselves, how would have their own playoff team faired against the nuggets.
+    </p>
+    <p>
+        They may even just want to see how their team stacks up against every other team as well. 
+    </p>
+    <p>
+        Afterall, every team can't play every team. Well now is the chance to compare any teams you want!
+    </p>
+    <p>
+        If you wanted to see if your team got unlucky in the playoffs with a bad matchup, just check it out here. The freedom is yours.
+    </p>
     <div class="drop1">
         <label for="teamDropdown1">Select the first team you want to compare!</label>
         <select id="teamDropdown1" onchange="setTeamA()">
@@ -80,7 +104,7 @@
         </select>
     </div>
     <div name ="tooltip" opacity></div>
-    <svg width="1200" height="750"></svg>
+    <svg width="1000" height="570"></svg>
     <button id = "scene2" onclick="redirectToScene2()">Previous page</button>
     <script>
         var teamColors = {
@@ -109,7 +133,7 @@
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        var svg = d3.select("svg"), width = 500, height = 500;
+        var svg = d3.select("svg"), width = 400, height = 400;
 
 
         var x_ = d3.scaleBand().range([0,width]);
@@ -117,6 +141,7 @@
 
         var teamA = "Denver Nuggets";
         var teamB = "Miami Heat";
+        updateTitle();
         update();
 
         function setTeamA(){
@@ -128,32 +153,36 @@
             teamB = document.getElementById('teamDropdown2').value;
             update();
         }
-        svg.append("text")
-        .attr("transform", "translate(125,0)")
-        .attr("x", 325)
-        .attr("y", 50)
-        .attr("font-size", "36ppx")
-        .text("Side by Side comparision of Miami vs. Denver");
+        
+        var titleText;
+        function updateTitle(){
+            if(!titleText){
+                titleText = svg.append("text")
+                .attr("transform", "translate(125,0)")
+                .attr("x", 350)
+                .attr("y", 90)
+                .attr("font-size", "36ppx")
+                .attr("font-weight", "bold")
+            } else{
+                titleText.text("Side by Side comparasion of the " + teamA + " and " + teamB);
+            }
+        }
 
         svg.append("text")
         .attr("transform", "translate(10,0)")
-        .attr("x", 215)
-        .attr("y", 350)
+        .attr("x", 355)
+        .attr("y", 320)
         .attr("font-size", "36ppx")
+        .attr("font-weight", "bold")
         .text("Category Value");
 
         svg.append("text")
         .attr("transform", "translate(10,0)")
-        .attr("x", 560)
-        .attr("y", 650)
+        .attr("x", 665)
+        .attr("y", 560)
         .attr("font-size", "36ppx")
+        .attr("font-weight", "bold")
         .text("Category");
-
-        svg.append("text")
-        .attr("x", 25)
-        .attr("y", 75)
-        .attr("font-size", "12ppx")
-        .text("Use your mouse to see exact values on the bars!");
 
         var legend = svg.append("g").attr("transform", "translate(800, 150)");
         var legendRect1, legendText1, legendRect2, legendText2;
@@ -193,9 +222,10 @@
             }
         }
 
-        var g = svg.append("g").attr("transform", "translate("+350+", "+100+")");
+        var g = svg.append("g").attr("transform", "translate("+506+", "+120+")");
         function update(){
             d3.csv("data/Stats.csv").then(function(dataset) {
+                updateTitle();
                 updateLegend();
                 svg.selectAll(".bar-team1, .bar-team2, .axis").remove();
                 var team1 = teamA;
@@ -228,7 +258,7 @@
                     .data([team1PTS, team1AST, team1TRB])
                     .enter().append("rect")
                     .attr("class", "bar-team1")
-                    .attr("x", function(d, i) { return x_("PTS") + 28 + i * x_.bandwidth(); })
+                    .attr("x", function(d, i) { return x_("PTS") + 22 + i * x_.bandwidth(); })
                     .attr("y", function(d) { return y_(d); })
                     .attr("width", function() { return x_.bandwidth() / 3; })
                     .attr("height", function(d) { return height - y_(d); })
@@ -248,7 +278,7 @@
                     .data([team2PTS, team2AST, team2TRB])
                     .enter().append("rect")
                     .attr("class", "bar-team2")
-                    .attr("x", function(d, i) { return x_("PTS") + 28+ i * x_.bandwidth() + x_.bandwidth() / 3; })
+                    .attr("x", function(d, i) { return x_("PTS") + 22+ i * x_.bandwidth() + x_.bandwidth() / 3; })
                     .attr("y", function(d) { return y_(d); })
                     .attr("width", function() { return x_.bandwidth() / 3; })
                     .attr("height", function(d) { return height - y_(d); })
