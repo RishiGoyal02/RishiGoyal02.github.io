@@ -47,21 +47,21 @@
         function redirectToScene2() {
             window.location.href = "scene2.html";
         }
-        var svg = d3.select("svg"),width = 300,height = 300;
+        var svg = d3.select("svg"),width = 400,height = 400;
 
 
         svg.append("text")
         .attr("transform", "translate(125,0)")
         .attr("x", 405)
-        .attr("y", 100)
+        .attr("y", 50)
         .attr("font-size", "36ppx")
         .attr("font-weight", "bold")
         .text("The amount of wins for teams in the 2023 NBA Playoffs");
 
         svg.append("text")
         .attr("transform", "translate(10,0)")
-        .attr("x", 475)
-        .attr("y", 300)
+        .attr("x", 425)
+        .attr("y", 280)
         .attr("font-size", "36ppx")
         .attr("font-weight", "bold")
         .text("Wins");
@@ -78,7 +78,7 @@
         var y_ = d3.scaleLinear().range([height,0]);
         var colors = ["lightblue", "maroon","green","yellow","navy","coral","gold","orange","purple","red","darkblue","darkgreen","brown","grey","blue","darkgrey"];
 
-        var g = svg.append("g").attr("transform", "translate("+550+", "+150+")");
+        var g = svg.append("g").attr("transform", "translate("+500+", "+70+")");
         d3.csv("data/adv_stats.csv").then(function(data){
             
             data.sort(function(a,b){return b.W - a.W;});
