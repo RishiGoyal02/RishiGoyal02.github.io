@@ -16,11 +16,19 @@
         h1{
             text-align: center;
         }
-        p {
+        .p1 {
             text-align: center;
             font-size: 16px;
             color:black;
             margin-bottom: 10px;
+        }
+        .p2 {
+            position: absolute;
+            left: 200px;
+            top: 400px;
+            font-size: 16px;
+            width: 225px;
+            color:black;
         }
     </style>
 </head>
@@ -28,22 +36,28 @@
     <header>
         <h1>The 2023 NBA playoffs and their statistics</h1>
     </header>
-    <p>
+    <p class="p1">
         The 2023 NBA playoffs where one of the more exciting playoffs in recent memory.
     </p>
-    <p>
+    <p class="p1">
         There were many teams that had a chance at winning, yet only 1 will win. That leaves many fans
     </p>
-    <p>
+    <p class="p1">
         wondering how their team would have faired if they played someone else. Well through data, we 
     </p>
-    <p>
+    <p class="p1">
         might be able to figure that out. But first, we must see how the playoffs really went in the first place.
     </p>
+    <p class="p2">
+        The team with the most wins is the Denver Nuggets. They got 16 wins and won the NBA finals, which leads many to 
+        believe that they are the best team in the NBA since more wins means a better team right?
+    </p>
     <button id="scene2"onclick="redirectToScene2()">Click here to learn more about the 2 best teams</button>
-    <svg width=1000 height=625></svg>
+    <svg width="1000" height="600">
+        <line x1="320" y1="200" x2="500" y2="150" stroke="black" stroke-width="2" />
+    </svg>
     <script>
-
+    
         function redirectToScene2() {
             window.location.href = "scene2.html";
         }

@@ -35,11 +35,19 @@
         h1{
             text-align: center;
         }
-        p {
+        .p1 {
             text-align: center;
             font-size: 16px;
             color:black;
             margin-bottom: 10px;
+        }
+        .p2 {
+            position: absolute;
+            left: 1110px;
+            bottom: 250px;
+            font-size: 16px;
+            width: 225px;
+            color:black;
         }
     </style>
 </head>
@@ -47,21 +55,29 @@
     <header>
         <h1>The 2023 NBA playoffs and their statistics</h1>
     </header>
-    <p>
+    <p class="p1">
         The eventual NBA Champions were the Denver Nuggets, achieving the 16 wins needed for the title.
     </p>
-    <p>
+    <p class="p1">
         Their opponent? The Miami Heat. Many didn't expect much from the heat but should
     </p>
-    <p>
-        they have thought differently? Below is a chart comparing the two teams stats of PTS (Points), AST (assists),
+    <p class="p1">
+        they have thought differently? Below is a chart comparing the two teams stats of PTS (Points), AST (assists), and TRB (total rebounds). 
     </p>
-    <p>
-        and TRB (total rebounds). These are the stats many people look at, so lets take a look and see how these two teams compare.
+    <p class="p1">
+        These are the stats many people look at, so lets take a look and see how these two teams compare. (You can mouseover the bars!)
+    </p>
+    <p class="p2">
+        These 3 bars show which teams averages more points, assists, and total rebounds. Denver is better than Miami in every category shown,
+        so it comes as no surprise they beat them in the finals.
     </p>
     <button id = "scene3" onclick="redirectToScene3()">Now you try! Click here to see how teams match up!</button>
     <div name ="tooltip" opacity></div>
-    <svg width="1000" height="570"></svg>
+    <svg width="1400" height="600">
+        <line x1="560" y1="140" x2="1100" y2="300" stroke="black" stroke-width="2" />
+        <line x1="705" y1="440" x2="1100" y2="300" stroke="black" stroke-width="2" />
+        <line x1="855" y1="380" x2="1100" y2="300" stroke="black" stroke-width="2" />
+    </svg>
     <button id = "scene1" onclick="redirectToScene1()">Previous page</button>
     <script>
         function redirectToScene3() {
