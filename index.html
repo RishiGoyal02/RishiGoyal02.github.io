@@ -1,20 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8"> 
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style> 
+        button {
+            font-size: 12px;
+        }
+        #scene2 {
+            position: absolute;
+            top: 30px;
+            left: 1000px;
+        }
+    </style>
 </head>
 <body>
-  <svg width="200" height="100" id="svgContainer"></svg>
-  <script>
-    const svg = d3.select("#svgContainer");
-  
-    svg
-      .append("rect")
-      .attr("x", 50)       
-      .attr("y", 500)       
-      .attr("width", 700)  
-      .attr("height", 500) 
-      .attr("fill", "red"); 
-  </script>
+
+    <button id="scene2"onclick="redirectToScene2()">Click here to learn more about the 2 best teams</button>
+    <svg width=1000 height=750></svg>
+    <script>
+        function redirectToScene2() {
+            window.location.href = "scene2.html";
+        }
+
+        var svg = d3.select("svg"),width = 500,height = 500;
+
+        svg.append("text")
+        .attr("transform", "translate(125,0)")
+        .attr("x", 325)
+        .attr("y", 50)
+        .attr("font-size", "36ppx")
+        .text("The amount of wins for teams in the 2023 NBA Playoffs");
+
+        svg.append("text")
+        .attr("transform", "translate(10,0)")
+        .attr("x", 265)
+        .attr("y", 350)
+        .attr("font-size", "36ppx")
+        .text("Wins");
+
+        svg.append("text")
+        .attr("transform", "translate(10,0)")
+        .attr("x", 555)
+        .attr("y", 750)
+        .attr("font-size", "36ppx")
+        .text("Teams");
+
+        var x_ = d3.scaleBand().range([0,width]).padding(.1);
+        var y_ = d3.scaleLinear().range([height,0]);
+        var colors = ["lightblue", "maroon","green","yellow","navy","coral","gold","orange","purple","red","darkblue","darkgreen","brown","grey","blue","darkgrey"];
+
+        var g = svg.append("g").attr("transform", "translate("+350+", "+100+")");
+        d3.csv("data/adv_stats.csv").then(function(data){
+            
+            data.sort(function(a,b){return b.W - a.W;});
+
+            x_.domain(data.map(function(d) { return d.Tm; }));
+            y_.domain([0, 16]);
+
+            g.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x_))
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-65)");
+
+            g.append("g")
+                .call(d3.axisLeft(y_).ticks(8));
+
+            g.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x_(d.Tm); })
+                .attr("y", function(d) { return y_(d.W); })
+                .attr("width", x_.bandwidth())
+                .attr("height", function(d) { return height - y_(d.W); })
+                .attr("fill", function(d, i) { return colors[i]; });
+ 
+            
+        });
+    </script>
 </body>
 </html>
